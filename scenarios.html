@@ -7,7 +7,9 @@
         <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
         <script src="script.js"></script>
         <script>
+            
             // write a function that arranges collection "scenarios" by "createdOn" in descending order (most current first) and returns the results.
+            
             (function() {
                 function MainCtrl(MainService) {
                     var ctrl = this;
@@ -65,23 +67,22 @@
             })();
         </script>
     </head>
-    <div ng-app="myApp">
-        <div ng-controller="MainCtrl as MainCtrl">
-            <div ng-repeat="scenario in MainCtrl.scenarios | orderBy: 
-    '-auditInfo.createdOn'">
-                <div>id: {{scenario.id}}</div>
-                <div>name: {{scenario.name}}</div>
-                <div>description: {{scenario.description}}</div>
-                <div>createdOn: {{scenario.auditInfo.createdOn | date:'MMMM dd, yyyy'}}</div>
-                <div>uuid: {{scenario.auditInfo.createdBy.uuid}}</div>
-                <div>name: {{scenario.auditInfo.createdBy.name}}</div>
-                <hr>
+    <body>
+        <div ng-app="myApp">
+            <div ng-controller="MainCtrl as MainCtrl">
+                <div ng-repeat="scenario in MainCtrl.scenarios | orderBy: 
+        '-auditInfo.createdOn'">
+                    <div>id: {{scenario.id}}</div>
+                    <div>name: {{scenario.name}}</div>
+                    <div>description: {{scenario.description}}</div>
+                    <div>createdOn: {{scenario.auditInfo.createdOn | date:'MMMM dd, yyyy'}}</div>
+                    <div>uuid: {{scenario.auditInfo.createdBy.uuid}}</div>
+                    <div>name: {{scenario.auditInfo.createdBy.name}}</div>
+                    <hr>
+                </div>
             </div>
         </div>
-    </div>
-
     </body>
-
 </html>
 
 
