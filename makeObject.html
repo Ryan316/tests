@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <script>
+       	// 5: write function "makeObject" which takes two strings as parameters and returns an object. The first parameter will be the nested object made, and the second parameter will be the value of that object.
+		// makeObject("foo.bar", "buzz"); // returns {foo: {bar: "buzz"}}
+		// makeObject("one.two.three", "foobar");  // returns {one: {two: {three: "foobar"}}}
+		// makeObject("kingdom.phylum.class.order", "primates");  // returns {kingdom: {phylum: {class: {order: "primates"}}}}
+
+		var makeObject = (function(str1, str2) {
+		  function obj(key, val) {
+		    this[key] = val;
+		  }
+		  var keys = str1.split("."),
+		    results = new obj(keys.pop(), str2);
+
+		  for (var i = keys.length; i > 0; i--) {
+		    results = new obj(keys.pop(), results);
+		  }
+		  return JSON.stringify(results);
+		});
+		console.log(makeObject("kingdom.phylum.class.order", "primates")); // returns {kingdom: {phylum: {class: {order: "primates"}}}}
+		console.log(makeObject("one.two.three", "foobar")); // returns {one: {two: {three: "foobar"}}}
+
+        </script>
+    </body>
+</html>
