@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <script>
+        // 3: write a function which takes an array of words and a string and finds all occurances of each array word in the string and returns that data as a collection.
+		// findWords(["cat", "at"], "Of the many cats in the catacombs, only the black cat and the white cat where at bat"); // returns [{"cat": 2}, {"at": 1}]
+		var words = ["foo", "bar", "a"];
+		var sentence = "after a foo, bar and foobar, we all went to a bar";
+		// other test samples
+		var sampleWord = ["cat", "at"];
+		var sampleSentence = "Of the many cats in the catacombs, only the black cat and the white cat where at bat";
+
+		function findWords(arrValue, strValue) {
+		  var arr = arrValue,
+		      str = strValue.split(" "),
+		      results = [];
+
+		  for (var i = 0; i < arr.length; i++) {
+		    var obj = {};
+		    obj[arr[i]] = 0;
+		    for (var k = 0; k < str.length; k++) {
+		      if (arr[i] === str[k]) {
+		        if (obj[arr[i]]) {
+		          obj[arr[i]]++;
+		        } else {
+		          obj[arr[i]] = 1;
+		        }
+		      }
+		    }
+		    results.push(obj);
+		  }
+		  return JSON.stringify(results);
+		}
+
+		console.log(findWords(words, sentence)); // returns [{"foo":0},{"bar":2},{"a":2}]
+		console.log(findWords(sampleWord, sampleSentence)); // returns [{"cat":2},{"at":1}]            
+        </script>
+    </body>
+</html>
