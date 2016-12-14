@@ -11,6 +11,8 @@
             // write a function that arranges collection "scenarios" by "createdOn" in descending order (most current first) and returns the results.
             
             (function() {
+                'use strict';
+                
                 function MainCtrl(MainService) {
                     var ctrl = this;
                     MainService.getScenarios().then(function(res) {
