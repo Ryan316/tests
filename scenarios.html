@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Example - example-filter-in-controller-production</title>
+        <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+        <script src="script.js"></script>
+        <script>
+            // write a function that arranges collection "scenarios" by "createdOn" in descending order (most current first) and returns the results.
+            (function() {
+                function MainCtrl(MainService) {
+                    var ctrl = this;
+                    MainService.getScenarios().then(function(res) {
+                        ctrl.scenarios = res;
+                    });
+                }
+
+                function MainService($http, $q) {
+                    this.getScenarios = function() {
+                        var scenarios = [{
+                            "id": 3,
+                            "name": "MASTER PROJECT",
+                            "description": "MASTER PROJECT",
+                            "auditInfo": {
+                                "createdOn": "March 10, 2014",
+                                "createdBy": {
+                                    "uuid": "system",
+                                    "name": "me"
+                                }
+                            }
+                        }, {
+                            "id": 1,
+                            "name": "Test calculation",
+                            "description": "Test calculation",
+                            "auditInfo": {
+                                "createdOn": "October 1, 2011",
+                                "createdBy": {
+                                    "uuid": "system",
+                                    "name": "me"
+                                }
+                            }
+                        }, {
+                            "id": 2,
+                            "name": "My Renamed Project - 1426026460724",
+                            "description": "This is my new description - 1426026460750",
+                            "auditInfo": {
+                                "createdOn": "June 15, 2013",
+                                "createdBy": {
+                                    "uuid": "system",
+                                    "name": "me"
+                                }
+                            }
+                        }];
+                        angular.forEach(scenarios, function(scenario) {
+                            scenario.auditInfo.createdOn = new Date(scenario.auditInfo.createdOn);
+                        });
+                        return $q.when(scenarios);
+                    }
+                }
+                angular
+                    .module('myApp', [])
+                    .controller('MainCtrl', MainCtrl)
+                    .service('MainService', MainService);
+            })();
+        </script>
+    </head>
+    <div ng-app="myApp">
+        <div ng-controller="MainCtrl as MainCtrl">
+            <div ng-repeat="scenario in MainCtrl.scenarios | orderBy: 
+    '-auditInfo.createdOn'">
+                <div>id: {{scenario.id}}</div>
+                <div>name: {{scenario.name}}</div>
+                <div>description: {{scenario.description}}</div>
+                <div>createdOn: {{scenario.auditInfo.createdOn | date:'MMMM dd, yyyy'}}</div>
+                <div>uuid: {{scenario.auditInfo.createdBy.uuid}}</div>
+                <div>name: {{scenario.auditInfo.createdBy.name}}</div>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>
+
+
